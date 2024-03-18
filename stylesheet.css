@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI体重計算ツール</title>
+<link rel="stylesheet" href="https://github.com/no-metabo/BMI/new/main">
+</head>
+<body>
+<div id="calculator">
+    <h2>BMI体重計算ツール</h2>
+    <label for="height">身長(cm)：</label>
+    <input type="number" id="height" step="0.1" placeholder="身長を入力してください">
+    <input type="submit" value="計算" onclick="calculateWeight()">
+    <p id="result"></p>
+</div>
+
+<script>
+    function calculateWeight() {
+        var height = parseFloat(document.getElementById('height').value);
+        if (!isNaN(height)) {
+            var bmi = 25;
+            var weightMin = bmi * (height / 100) ** 2; // BMI = 25 の場合の最小体重を計算
+            bmi = 35;
+            var weightMax = bmi * (height / 100) ** 2; // BMI = 35 の場合の最大体重を計算
+            document.getElementById('result').innerHTML = "BMIが25以上35未満の場合の体重の範囲：約 " + weightMin.toFixed(1) + "kg から " + weightMax.toFixed(1) + "kg";
+        } else {
+            document.getElementById('result').innerHTML = "有効な身長を入力してください";
+        }
+    }
+</script>
+</body>
+</html>
