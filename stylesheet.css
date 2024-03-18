@@ -1,4 +1,14 @@
 /* CSS スタイルを追加 */
+body {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+}
+#calculator {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
 #conditions {
     margin-top: 10px;
     font-weight: bold;
@@ -8,4 +18,10 @@
 }
 #conditions strong {
     color: green;
+}
+input[type="number"], input[type="submit"] {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
