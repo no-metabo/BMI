@@ -4,7 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMI体重計算ツール</title>
-<link rel="stylesheet" href="https://github.com/no-metabo/BMI/new/main">
+<style>
+    /* CSS スタイルを追加 */
+    #conditions {
+        margin-top: 10px;
+        font-weight: bold;
+        border: 1px solid #ccc;
+        padding: 10px;
+        background-color: #f9f9f9;
+    }
+    #conditions strong {
+        color: green;
+    }
+</style>
 </head>
 <body>
 <div id="calculator">
@@ -13,6 +25,8 @@
     <input type="number" id="height" step="0.1" placeholder="身長を入力してください">
     <input type="submit" value="計算" onclick="calculateWeight()">
     <p id="result"></p>
+    <p id="weightRange"></p> <!-- 体重の範囲を表示する要素 -->
+    <p id="conditions"></p> <!-- 必須条件を表示する要素 -->
 </div>
 
 <script>
@@ -24,8 +38,33 @@
             bmi = 35;
             var weightMax = bmi * (height / 100) ** 2; // BMI = 35 の場合の最大体重を計算
             document.getElementById('result').innerHTML = "BMIが25以上35未満の場合の体重の範囲：約 " + weightMin.toFixed(1) + "kg から " + weightMax.toFixed(1) + "kg";
+            document.getElementById('weightRange').innerText = "体重の範囲：約 " + weightMin.toFixed(1) + "kg から " + weightMax.toFixed(1) + "kg"; // 体重の範囲を表示
+
+            // 必須条件の表示
+            var age = 18; // 年齢
+            var abdominalCircumferenceMale = 85; // 男性の腹囲
+            var abdominalCircumferenceFemale = 90; // 女性の腹囲
+            var healthCondition = "健康障害なし"; // 健康状態
+
+            // 条件に応じてメッセージを設定
+            var conditionsMessage = "必須条件：<br>";
+            conditionsMessage += "・18歳以上<br>";
+            conditionsMessage += "・腹囲：男性" + abdominalCircumferenceMale + "cm以上、女性" + abdominalCircumferenceFemale + "cm以上<br>";
+            conditionsMessage += "・健康障害なしの場合: BMIが25未満なら可<br>";
+            conditionsMessage += "・健康障害ありの場合: BMIが35未満なら可<br>";
+            conditionsMessage += "※健康障害: 耐糖能障害、脂質異常症、高血圧、高尿酸血症・痛風、冠動脈疾患、月経異常・不妊、脳梗塞、非アルコール性脂肪肝、閉塞性睡眠時無呼吸症候群、肥満関連腎臓病、運動器疾患<br>";
+            
+            // 年齢と腹囲の条件を満たしているかチェック
+            if (age >= 18 && (healthCondition === "健康障害なし" && weightMin < 25 || healthCondition !== "健康障害なし" && weightMin < 35)) {
+                conditionsMessage += "<strong>条件を満たしています。</strong>";
+            } else {
+                conditionsMessage += "<strong>条件を満たしていません。</strong>";
+            }
+            document.getElementById('conditions').innerHTML = conditionsMessage;
         } else {
             document.getElementById('result').innerHTML = "有効な身長を入力してください";
+            document.getElementById('weightRange').innerText = ""; // 身長が入力されていない場合、体重の範囲を非表示にする
+            document.getElementById('conditions').innerText = ""; // 身長が入力されていない場合、必須条件も非表示にする
         }
     }
 </script>
