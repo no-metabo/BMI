@@ -35,7 +35,7 @@
             bmi = 35;
             var weightMax = bmi * (height / 100) ** 2; // BMI = 35 の場合の最大体重を計算
             document.getElementById('result').innerHTML = "BMIが25以上35未満の場合の体重の範囲：<br>約 " + weightMin.toFixed(1) + "kg から " + weightMax.toFixed(1) + "kg";
-            document.getElementById('weightRange').innerText = "体重の範囲：\n約 " + weightMin.toFixed(1) + "kg から " + weightMax.toFixed(1) + "kg"; // 体重の範囲を表示
+            document.getElementById('weightRange').innerText = ""; // 不要な重複表示を削除
 
             // 必須条件の表示
             var age = 18; // 年齢
@@ -53,9 +53,9 @@
             
             // 年齢と腹囲の条件を満たしているかチェック
             if (age >= 18 && (healthCondition === "健康障害なし" && weightMin < 25 || healthCondition !== "健康障害なし" && weightMin < 35)) {
-                conditionsMessage += "<strong>条件を満たしています。</strong>";
+                // メッセージ表示不要のため削除
             } else {
-                conditionsMessage += "<strong>条件を満たしていません。</strong>";
+                // メッセージ表示不要のため削除
             }
             document.getElementById('conditions').innerHTML = conditionsMessage;
         } else {
